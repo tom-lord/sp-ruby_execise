@@ -1,9 +1,8 @@
 class LogParser
-  attr_reader :log, :page_views
+  attr_reader :page_views
   def initialize(log_file)
-    @log = log_file.read
     @page_views = Hash.new { |hash, key| hash[key] = [] }
-    parse
+    parse(log_file)
   end
 
   def total_page_views
@@ -20,8 +19,8 @@ class LogParser
 
   private
 
-  def parse
-    log.each_line do |line|
+  def parse(log_file)
+    log_file.each_line do |line|
       page, ip = line.split
       page_views[page] << ip
     end
