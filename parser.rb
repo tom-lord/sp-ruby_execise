@@ -1,7 +1,5 @@
 #!/usr/bin/env ruby
-require_relative 'log_parser'
-require_relative 'total_display_formatter'
-require_relative 'unique_display_formatter'
+Dir["#{__dir__}/lib/*"].each {|file| require file }
 
 parser = LogParser.new(ARGF)
 

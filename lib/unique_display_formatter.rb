@@ -1,4 +1,3 @@
-require_relative 'display_order_converter'
 class UniqueDisplayFormatter
   include DisplayOrderConverter
   def metric(views)
