@@ -1,5 +1,7 @@
 require 'minitest/autorun'
 require_relative 'log_parser'
+require_relative 'total_display_formatter'
+require_relative 'unique_display_formatter'
 
 def test_log_file
   file = Tempfile.new
@@ -10,6 +12,24 @@ def test_log_file
   FILE
   file.rewind
   file
+end
+
+describe 'TotalDisplayFormatter' do
+  it 'defines a metric for counting total views' do
+    assert_equal(
+      3,
+      TotalDisplayFormatter.new.metric(%w(a a b))
+    )
+  end
+end
+
+describe 'UniqueDisplayFormatter' do
+  it 'defines a metric for counting unique views' do
+    assert_equal(
+      2,
+      UniqueDisplayFormatter.new.metric(%w(a a b))
+    )
+  end
 end
 
 describe 'LogParser' do
