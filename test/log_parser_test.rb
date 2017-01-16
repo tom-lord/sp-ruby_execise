@@ -24,7 +24,7 @@ describe 'LogParser' do
     )
   end
 
-  it 'lists page views given a "total" metric and order' do
+  it 'lists page views given a "total" metric, in ascending order' do
     total_views = LogParser.new(test_log_file).display_page_views(
       TotalDisplayFormatter.new
     )
@@ -38,7 +38,7 @@ describe 'LogParser' do
     )
   end
 
-  it 'lists page views given a "unique" metric and order' do
+  it 'lists page views given a "unique" metric, in ascending order' do
     unique_views = LogParser.new(test_log_file).display_page_views(
       UniqueDisplayFormatter.new
     )
@@ -49,6 +49,33 @@ describe 'LogParser' do
     assert_match(
       /page2\s+1 unique views/,
       unique_views.lines[1]
+    )
+  end
+
+  it 'lists page views with "total" metric, when none explicitly provided' do
+    total_views = LogParser.new(test_log_file).display_page_views
+    assert_match(
+      /page2\s+2 visits/,
+      total_views.lines[0]
+    )
+    assert_match(
+      /page1\s+1 visits/,
+      total_views.lines[1]
+    )
+  end
+
+  it 'lists pages in descending order, when specified' do
+    total_views = LogParser.new(test_log_file).display_page_views(
+      TotalDisplayFormatter.new(order: :desc)
+    )
+    # Note that these assertions have switched order!!
+    assert_match(
+      /page2\s+1 visits/,
+      total_views.lines[0]
+    )
+    assert_match(
+      /page1\s+2 visits/,
+      total_views.lines[1]
     )
   end
 end
