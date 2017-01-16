@@ -1,11 +1,12 @@
+require_relative 'display_order_converter'
 class UniqueDisplayFormatter
-  DISPLAY_ORDERS = {asc: -1, desc: 1}
+  include DisplayOrderConverter
   def metric(views)
     views.uniq.count
   end
 
   def sort_metric(views)
-    metric(views) * DISPLAY_ORDERS[order]
+    metric(views) * order_converter(order)
   end
 
   def order
