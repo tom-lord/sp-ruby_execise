@@ -70,11 +70,11 @@ describe 'LogParser' do
     )
     # Note that these assertions have switched order!!
     assert_match(
-      /page2\s+1 visits/,
+      /page1\s+1 visits/,
       total_views.lines[0]
     )
     assert_match(
-      /page1\s+2 visits/,
+      /page2\s+2 visits/,
       total_views.lines[1]
     )
   end
