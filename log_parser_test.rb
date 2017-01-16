@@ -21,8 +21,12 @@ describe 'LogParser' do
     )
   end
 
-  it 'lists total page views' do
-    total_views = LogParser.new(test_log_file).total_page_views
+  it 'lists page views given a "total" metric and order' do
+    total_views = LogParser.new(test_log_file).display_page_views(
+      metric: ->(views){ views.count },
+      order: :asc,
+      description: 'visits'
+    )
     assert_match(
       /page2\s+2 visits/,
       total_views.lines[0]
@@ -33,8 +37,12 @@ describe 'LogParser' do
     )
   end
 
-  it 'lists unique page views' do
-    unique_views = LogParser.new(test_log_file).unique_page_views
+  it 'lists page views given a "unique" metric and order' do
+    unique_views = LogParser.new(test_log_file).display_page_views(
+      metric: ->(views){ views.uniq.count },
+      order: :asc,
+      description: 'unique views'
+    )
     assert_match(
       /page1\s+1 unique views/,
       unique_views.lines[0]
