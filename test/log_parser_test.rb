@@ -78,5 +78,15 @@ describe 'LogParser' do
       total_views.lines[1]
     )
   end
+
+  it 'optimises amount of whitespace in output' do
+    total_views = LogParser.new(test_log_file).display_page_views(
+      TotalDisplayFormatter.new
+    )
+    assert_equal(
+      'page2  2 visits',
+      total_views.lines[0].chomp
+    )
+  end
 end
 
