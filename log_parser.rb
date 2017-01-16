@@ -6,9 +6,13 @@ class LogParser
     parse(log_file)
   end
 
-  def display_page_views(metric:, order:, description:)
-    sorted_pages(metric, DISPLAY_ORDERS[order]).map do |page, views|
-      sprintf "%12s  %3s #{description}", page, metric.call(views)
+  def display_page_views(display_formatter)
+    sorted_pages(display_formatter).map do |page, views|
+      sprintf(
+        "%12s  %3s #{display_formatter.description}",
+        page,
+        display_formatter.metric(views)
+      )
     end.join("\n")
   end
 
@@ -21,8 +25,10 @@ class LogParser
     end
   end
 
-  def sorted_pages(metric, order)
-    page_views.sort_by { |page, views| metric.call(views) * order }
+  def sorted_pages(display_formatter)
+    page_views.sort_by do |page, views|
+      display_formatter.metric(views) * DISPLAY_ORDERS[display_formatter.order]
+    end
   end
 end
 
