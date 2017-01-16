@@ -1,6 +1,5 @@
 class LogParser
   attr_reader :page_views
-  DISPLAY_ORDERS = {asc: -1, desc: 1}
   def initialize(log_file)
     @page_views = Hash.new { |hash, key| hash[key] = [] }
     parse(log_file)
@@ -27,7 +26,7 @@ class LogParser
 
   def sorted_pages(display_formatter)
     page_views.sort_by do |page, views|
-      display_formatter.metric(views) * DISPLAY_ORDERS[display_formatter.order]
+      display_formatter.sort_metric(views)
     end
   end
 end
