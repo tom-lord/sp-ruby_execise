@@ -32,5 +32,5 @@ etc...
 A few simple unit tests can be run via:
 
 ```
-ruby log_parser_test.rb
+rake test
 ```
