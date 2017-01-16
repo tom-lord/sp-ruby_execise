@@ -5,7 +5,7 @@ class LogParser
     parse(log_file)
   end
 
-  def display_page_views(display_formatter)
+  def display_page_views(display_formatter = TotalDisplayFormatter.new)
     sorted_pages(display_formatter).map do |page, views|
       sprintf(
         "%12s  %3s #{display_formatter.description}",
