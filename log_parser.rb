@@ -1,19 +1,14 @@
 class LogParser
   attr_reader :page_views
+  DISPLAY_ORDERS = {asc: -1, desc: 1}
   def initialize(log_file)
     @page_views = Hash.new { |hash, key| hash[key] = [] }
     parse(log_file)
   end
 
-  def total_page_views
-    sorted_total.map do |page, views|
-      sprintf '%12s  %3s visits', page, views.count
-    end.join("\n")
-  end
-
-  def unique_page_views
-    sorted_unique.map do |page, views|
-      sprintf '%12s  %3s unique views', page, views.uniq.count
+  def display_page_views(metric:, order:, description:)
+    sorted_pages(metric, DISPLAY_ORDERS[order]).map do |page, views|
+      sprintf "%12s  %3s #{description}", page, metric.call(views)
     end.join("\n")
   end
 
@@ -26,12 +21,8 @@ class LogParser
     end
   end
 
-  def sorted_total
-    page_views.sort_by { |page, views| -views.count }
-  end
-
-  def sorted_unique
-    page_views.sort_by { |page, views| -views.uniq.count }
+  def sorted_pages(metric, order)
+    page_views.sort_by { |page, views| metric.call(views) * order }
   end
 end
 
