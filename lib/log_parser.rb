@@ -8,7 +8,7 @@ class LogParser
   def display_page_views(display_formatter = TotalDisplayFormatter.new)
     sorted_pages(display_formatter).map do |page, views|
       sprintf(
-        "%12s  %3s #{display_formatter.description}",
+        "%#{page_padding}s  %#{count_padding(display_formatter)}s #{display_formatter.description}",
         page,
         display_formatter.metric(views)
       )
@@ -28,6 +28,16 @@ class LogParser
     page_views.sort_by do |page, views|
       display_formatter.sort_metric(views)
     end
+  end
+
+  def page_padding
+    page_views.keys.map(&:length).max
+  end
+
+  def count_padding(display_formatter)
+    page_views.values.map do |views|
+      display_formatter.metric(views).to_s.length
+    end.max
   end
 end
 
