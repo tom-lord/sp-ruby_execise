@@ -24,7 +24,7 @@ describe 'LogParser' do
     )
   end
 
-  it 'lists page views given a "total" metric, in ascending order' do
+  it 'lists page views given a "total" metric, in descending order' do
     total_views = LogParser.new(test_log_file).display_page_views(
       TotalDisplayFormatter.new
     )
@@ -38,7 +38,7 @@ describe 'LogParser' do
     )
   end
 
-  it 'lists page views given a "unique" metric, in ascending order' do
+  it 'lists page views given a "unique" metric, in descending order' do
     unique_views = LogParser.new(test_log_file).display_page_views(
       UniqueDisplayFormatter.new
     )
@@ -64,9 +64,9 @@ describe 'LogParser' do
     )
   end
 
-  it 'lists pages in descending order, when specified' do
+  it 'lists pages in ascending order, when specified' do
     total_views = LogParser.new(test_log_file).display_page_views(
-      TotalDisplayFormatter.new(order: :desc)
+      TotalDisplayFormatter.new(order: :asc)
     )
     # Note that these assertions have switched order!!
     assert_match(

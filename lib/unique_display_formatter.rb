@@ -1,6 +1,6 @@
 class UniqueDisplayFormatter
   include DisplayOrderConverter
-  def initialize(order: :asc)
+  def initialize(order: :desc)
     @order = order
   end
 
