@@ -15,19 +15,34 @@ end
 describe 'LogParser' do
   it 'defines a mapping of page viewed to IPs' do
     log_parser = LogParser.new(test_log_file)
-    log_parser.page_views.must_equal({'page1' => ['1.2.3.4'], 'page2' => ['5.6.7.8', '5.6.7.8']})
+    assert_equal(
+      {'page1' => ['1.2.3.4'], 'page2' => ['5.6.7.8', '5.6.7.8']},
+      log_parser.page_views
+    )
   end
 
   it 'lists total page views' do
     total_views = LogParser.new(test_log_file).total_page_views
-    total_views.lines[0].must_match(/page2\s+2 visits/)
-    total_views.lines[1].must_match(/page1\s+1 visits/)
+    assert_match(
+      /page2\s+2 visits/,
+      total_views.lines[0]
+    )
+    assert_match(
+      /page1\s+1 visits/,
+      total_views.lines[1]
+    )
   end
 
   it 'lists unique page views' do
     unique_views = LogParser.new(test_log_file).unique_page_views
-    unique_views.lines[0].must_match(/page1\s+1 unique views/)
-    unique_views.lines[1].must_match(/page2\s+1 unique views/)
+    assert_match(
+      /page1\s+1 unique views/,
+      unique_views.lines[0]
+    )
+    assert_match(
+      /page2\s+1 unique views/,
+      unique_views.lines[1]
+    )
   end
 end
 
