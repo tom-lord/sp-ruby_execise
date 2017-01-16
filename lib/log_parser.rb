@@ -31,11 +31,13 @@ class LogParser
   end
 
   def page_padding
-    page_views.keys.map(&:length).max
+    @page_padding ||= page_views.keys.map(&:length).max
   end
 
   def count_padding(display_formatter)
-    page_views.values.map do |views|
+    @count_padding ||= {}
+    # Note: Padding is independent to ascending/descending formatting
+    @count_padding[display_formatter.class] ||= page_views.values.map do |views|
       display_formatter.metric(views).to_s.length
     end.max
   end
