@@ -1,4 +1,10 @@
-class UniqueDisplayFormatter < BaseDisplayFormatter
+class UniqueDisplayFormatter
+  include ArrangedOrder
+
+  def initialize(order: :desc)
+    @order = order
+  end
+
   def metric(views)
     views.uniq.count
   end

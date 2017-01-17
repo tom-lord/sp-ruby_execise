@@ -1,4 +1,4 @@
-class RandomDisplayFormatter < BaseDisplayFormatter
+class RandomDisplayFormatter
   def metric(views)
     views.sample
   end

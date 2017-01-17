@@ -1,5 +1,5 @@
 require 'minitest/autorun'
-require 'base_display_formatter'
+require 'arranged_order'
 require 'total_display_formatter'
 require 'unique_display_formatter'
 require 'random_display_formatter'
