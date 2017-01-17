@@ -9,7 +9,10 @@ class BaseDisplayFormatter
     metric(views) * order_converter(@order)
   end
 
+  private
+
   def order_converter(order)
     DISPLAY_ORDERS.fetch(order)
   end
+
 end
