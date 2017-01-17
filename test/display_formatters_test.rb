@@ -2,6 +2,7 @@ require 'minitest/autorun'
 require 'base_display_formatter'
 require 'total_display_formatter'
 require 'unique_display_formatter'
+require 'random_display_formatter'
 
 describe 'TotalDisplayFormatter' do
   it 'defines a metric for counting total views' do
@@ -21,3 +22,11 @@ describe 'UniqueDisplayFormatter' do
   end
 end
 
+describe 'RandomDisplayFormatter' do
+  it 'defines a metric by choosing an array element' do
+    assert_includes(
+      %(a b),
+      RandomDisplayFormatter.new.metric(%w(a a b))
+    )
+  end
+end
