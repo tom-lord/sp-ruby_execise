@@ -1,8 +1,4 @@
-require 'minitest/autorun'
-require 'arranged_order'
-require 'total_display_formatter'
-require 'unique_display_formatter'
-require 'random_display_formatter'
+require 'test_helper'
 
 describe 'TotalDisplayFormatter' do
   it 'defines a metric for counting total views' do
@@ -30,3 +26,4 @@ describe 'RandomDisplayFormatter' do
     )
   end
 end
+

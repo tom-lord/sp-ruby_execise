@@ -1,8 +1,4 @@
-require 'minitest/autorun'
-require 'log_parser'
-require 'arranged_order'
-require 'total_display_formatter'
-require 'unique_display_formatter'
+require 'test_helper'
 
 def test_log_file
   file = Tempfile.new
